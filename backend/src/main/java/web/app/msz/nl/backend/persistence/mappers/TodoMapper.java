@@ -14,6 +14,5 @@ public interface TodoMapper {
 
     Todo toEntity(TodoRequestDto requestDto);
 
-    List<TodoResponseDto> toResponseList(List<Todo> todos);
-
+    List<TodoResponseDto> toResponseDtoList(List<Todo> todos);
 }

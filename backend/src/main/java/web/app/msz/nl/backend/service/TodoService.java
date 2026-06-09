@@ -12,6 +12,7 @@ import web.app.msz.nl.backend.persistence.mappers.TodoMapper;
 import web.app.msz.nl.backend.persistence.repository.TodoRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 /**
@@ -26,7 +27,12 @@ public class TodoService {
     private final TodoRepository todoRepository;
     private final TodoMapper todoMapper;
 
-    public TodoResponseDto findOneById(Long todoId) {
+    public List<TodoResponseDto> getAllTodos() {
+        List<Todo> todos = todoRepository.findAll();
+        return todoMapper.toResponseDtoList(todos);
+    }
+
+    public TodoResponseDto getTodoById(Long todoId) {
         Todo todo = todoRepository.findById(todoId)
                 .orElseThrow(() -> new TodoNotFoundException(todoId));
 
