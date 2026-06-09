@@ -1,12 +1,12 @@
 package web.app.msz.nl.backend.api;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import web.app.msz.nl.backend.dto.TodoResponse;
+import org.springframework.web.bind.annotation.*;
+import web.app.msz.nl.backend.dto.TodoRequestDto;
+import web.app.msz.nl.backend.dto.TodoResponseDto;
 import web.app.msz.nl.backend.service.TodoService;
 
 @RestController
@@ -17,8 +17,18 @@ public class TodoController {
     private final TodoService todoService;
 
     @GetMapping("/{todoId}")
-    public ResponseEntity<TodoResponse> getTodo(@PathVariable Long todoId) {
-        TodoResponse todo = todoService.findOneById(todoId);
+    public ResponseEntity<TodoResponseDto> getTodo(@PathVariable Long todoId) {
+        TodoResponseDto todo = todoService.findOneById(todoId);
         return ResponseEntity.ok(todo);
+    }
+
+    @PostMapping
+    public ResponseEntity<TodoResponseDto> createTodo(@Valid @RequestBody TodoRequestDto request) {
+
+        TodoResponseDto response = todoService.createTodo(request);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(response);
     }
 }

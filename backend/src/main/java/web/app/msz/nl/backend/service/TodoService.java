@@ -4,11 +4,14 @@ import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import web.app.msz.nl.backend.dto.TodoResponse;
+import web.app.msz.nl.backend.dto.TodoRequestDto;
+import web.app.msz.nl.backend.dto.TodoResponseDto;
 import web.app.msz.nl.backend.exception.TodoNotFoundException;
 import web.app.msz.nl.backend.persistence.entities.Todo;
 import web.app.msz.nl.backend.persistence.mappers.TodoMapper;
 import web.app.msz.nl.backend.persistence.repository.TodoRepository;
+
+import java.time.LocalDateTime;
 
 
 /**
@@ -16,18 +19,30 @@ import web.app.msz.nl.backend.persistence.repository.TodoRepository;
  */
 @Slf4j
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class TodoService {
 
     private final TodoRepository todoRepository;
     private final TodoMapper todoMapper;
 
-    public TodoResponse findOneById(Long todoId) {
-
+    public TodoResponseDto findOneById(Long todoId) {
         Todo todo = todoRepository.findById(todoId)
                 .orElseThrow(() -> new TodoNotFoundException(todoId));
 
-        return todoMapper.toResponse(todo);
+        return todoMapper.toResponseDto(todo);
     }
+
+    @Transactional
+    public TodoResponseDto createTodo(TodoRequestDto request) {
+        Todo todo = todoMapper.toEntity(request);
+
+        todo.setCreatedAt(LocalDateTime.now());
+        todo.setCompleted(false);
+
+        Todo savedTodo = todoRepository.save(todo);
+
+        return todoMapper.toResponseDto(savedTodo);
+    }
+
 }
