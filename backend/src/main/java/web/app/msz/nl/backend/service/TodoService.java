@@ -20,18 +20,20 @@ import java.util.List;
  */
 @Slf4j
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class TodoService {
 
     private final TodoRepository todoRepository;
     private final TodoMapper todoMapper;
 
+    @Transactional(readOnly = true)
     public List<TodoResponseDto> getAllTodos() {
         List<Todo> todos = todoRepository.findAll();
         return todoMapper.toResponseDtoList(todos);
     }
 
+    @Transactional(readOnly = true)
     public TodoResponseDto getTodoById(Long todoId) {
         Todo todo = todoRepository.findById(todoId)
                 .orElseThrow(() -> new TodoNotFoundException(todoId));
@@ -39,16 +41,29 @@ public class TodoService {
         return todoMapper.toResponseDto(todo);
     }
 
-    @Transactional
     public TodoResponseDto createTodo(TodoRequestDto request) {
         Todo todo = todoMapper.toEntity(request);
 
         todo.setCreatedAt(LocalDateTime.now());
         todo.setCompleted(false);
 
-        Todo savedTodo = todoRepository.save(todo);
-
-        return todoMapper.toResponseDto(savedTodo);
+        return todoMapper.toResponseDto(todoRepository.save(todo));
     }
 
+    public void deleteTodo(Long todoId) {
+        if (!todoRepository.existsById(todoId)) {
+            throw new TodoNotFoundException(todoId);
+        }
+
+        todoRepository.deleteById(todoId);
+    }
+
+    public TodoResponseDto updateTodoStatus(Long todoId, boolean completed) {
+        Todo todo = todoRepository.findById(todoId)
+                .orElseThrow(() -> new TodoNotFoundException(todoId));
+
+        todo.setCompleted(completed);
+
+        return todoMapper.toResponseDto(todoRepository.save(todo));
+    }
 }

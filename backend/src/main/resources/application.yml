@@ -1,11 +1,9 @@
 spring:
-
   datasource:
     url: jdbc:postgresql://localhost:5432/webapp
     username: todo
     password: todo
 
-  spring:
     flyway:
       enabled: true
     jpa:
@@ -21,3 +19,8 @@ spring:
 logging:
   level:
     org.flywaydb: DEBUG
+
+server:
+  port: 8090
+
+debug: true

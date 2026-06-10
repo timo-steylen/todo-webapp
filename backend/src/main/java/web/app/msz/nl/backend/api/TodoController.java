@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import web.app.msz.nl.backend.dto.TodoRequestDto;
 import web.app.msz.nl.backend.dto.TodoResponseDto;
+import web.app.msz.nl.backend.dto.TodoUpdateDto;
 import web.app.msz.nl.backend.service.TodoService;
 
 import java.util.List;
@@ -36,5 +37,22 @@ public class TodoController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(response);
+    }
+
+    @DeleteMapping("/{todoId}")
+    public ResponseEntity<Void> deleteTodo(@PathVariable Long todoId) {
+        todoService.deleteTodo(todoId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{todoId}")
+    public ResponseEntity<TodoResponseDto> updateTodoStatus(
+            @PathVariable Long todoId,
+            @RequestBody TodoUpdateDto request) {
+
+        return ResponseEntity.ok(
+                todoService.updateTodoStatus(
+                        todoId,
+                        request.completed()));
     }
 }

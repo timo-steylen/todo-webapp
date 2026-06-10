@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public record TodoRequestDto(
         @NotBlank
-        String title,
+        String name,
         String description,
         String tags,
         LocalDate deadlineDate

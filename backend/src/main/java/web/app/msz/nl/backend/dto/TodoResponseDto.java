@@ -5,11 +5,10 @@ import java.time.LocalDateTime;
 
 public record TodoResponseDto(
         Long id,
-        String title,
+        String name,
         String description,
         String tags,
         LocalDateTime createdAt,
         LocalDate deadlineDate,
         boolean completed
-) {
-}
+) {}
