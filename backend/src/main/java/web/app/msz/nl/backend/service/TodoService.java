@@ -29,8 +29,10 @@ public class TodoService {
 
     @Transactional(readOnly = true)
     public List<TodoResponseDto> getAllTodos() {
-        List<Todo> todos = todoRepository.findAll();
-        return todoMapper.toResponseDtoList(todos);
+        return todoRepository.findAll()
+                .stream()
+                .map(todoMapper::toResponseDto)
+                .toList();
     }
 
     @Transactional(readOnly = true)

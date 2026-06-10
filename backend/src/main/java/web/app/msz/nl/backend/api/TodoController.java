@@ -20,15 +20,13 @@ public class TodoController {
     private final TodoService todoService;
 
     @GetMapping
-    public ResponseEntity<List<TodoResponseDto>> getAllTodos() {
-        List<TodoResponseDto> todos = todoService.getAllTodos();
-        return ResponseEntity.ok(todos);
+    public List<TodoResponseDto> getAllTodos() {
+        return todoService.getAllTodos();
     }
 
     @GetMapping("/{todoId}")
-    public ResponseEntity<TodoResponseDto> getTodoById(@PathVariable Long todoId) {
-        TodoResponseDto todo = todoService.getTodoById(todoId);
-        return ResponseEntity.ok(todo);
+    public TodoResponseDto getTodoById(@PathVariable Long todoId) {
+        return todoService.getTodoById(todoId);
     }
 
     @PostMapping
@@ -46,13 +44,10 @@ public class TodoController {
     }
 
     @PatchMapping("/{todoId}")
-    public ResponseEntity<TodoResponseDto> updateTodoStatus(
+    public TodoResponseDto updateTodoStatus(
             @PathVariable Long todoId,
             @RequestBody TodoUpdateDto request) {
 
-        return ResponseEntity.ok(
-                todoService.updateTodoStatus(
-                        todoId,
-                        request.completed()));
+        return todoService.updateTodoStatus(todoId, request.completed());
     }
 }

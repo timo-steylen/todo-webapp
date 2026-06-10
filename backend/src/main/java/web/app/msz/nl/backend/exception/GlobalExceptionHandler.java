@@ -12,7 +12,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(TodoNotFoundException.class)
     public ProblemDetail handleTodoNotFound(TodoNotFoundException ex) {
-        log.debug("Todo not found: {}", ex.getMessage(), ex);
+        log.warn("Todo not found: {}", ex.getMessage(), ex);
         ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
         problem.setTitle("Todo not found");
         problem.setDetail(ex.getMessage());
