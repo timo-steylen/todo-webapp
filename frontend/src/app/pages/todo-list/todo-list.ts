@@ -21,22 +21,23 @@ export class TodoList {
 
   dataSource = new MatTableDataSource<Todo>();
 
-  displayedColumns: string[] = [
-    'id',
-    'name',
-    'description',
-    'tags',
-    'createdAt',
-    'deadlineDate',
-    'completed'
+  columns = [
+    { key: 'id', header: 'Id' },
+    { key: 'name', header: 'Naam' },
+    { key: 'description', header: 'Beschrijving' },
+    { key: 'tags', header: 'Tags' },
+    { key: 'createdAt', header: 'Datum Aangemaakt' },
+    { key: 'deadlineDate', header: 'Deadline Datum' },
+    { key: 'completed', header: 'Completed' }
   ];
+
+  displayedColumns = this.columns.map(c => c.key);
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
 
   ngOnInit(): void {
-    console.log("Todo's geladen");
     this.loadTodos();
   }
 
@@ -45,5 +46,4 @@ export class TodoList {
       next: todos => this.dataSource.data = todos
     });
   }
-
 }
