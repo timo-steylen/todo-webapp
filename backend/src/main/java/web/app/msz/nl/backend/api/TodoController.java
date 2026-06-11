@@ -12,6 +12,8 @@ import web.app.msz.nl.backend.service.TodoService;
 
 import java.util.List;
 
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/todos")
 @RequiredArgsConstructor

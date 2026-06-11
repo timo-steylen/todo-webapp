@@ -1,1 +1,14 @@
-<p>todo-list works!</p>
+<h1>Todos</h1>
+
+@if (todos.length === 0) {
+  <p>Geen todos gevonden.</p>
+}
+
+<ul>
+  @for (todo of todos; track todo.id) {
+    <li>
+      <strong>{{ todo.name }}</strong><br>
+      {{ todo.description }}
+    </li>
+  }
+</ul>

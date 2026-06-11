@@ -9,7 +9,7 @@ import {Todo} from '../models/todo.model';
 })
 export class TodoService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:8080/api/todos';
+  private readonly apiUrl = 'http://localhost:8090/api/todos';
 
   createTodo(request: CreateTodoRequest): Observable<Todo> {
     return this.http.post<Todo>(this.apiUrl, request);
