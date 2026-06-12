@@ -3,3 +3,49 @@
   flex-direction: column;
   align-items: flex-start;
 }
+
+.todo-create-container {
+  margin-top: 40px;
+  margin-left: 40px;
+}
+
+.todo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 600px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+section {
+  display: flex;
+  align-items: center;
+}
+
+.example-label {
+  font-size: 14px;
+  margin: 0 16px 0 8px;
+  min-width: 120px;
+}
+
+.button-row {
+  max-width: 600px;
+  margin-top: 50px;
+}
+
+.button {
+  min-width: 150px;
+}
+
+.button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
