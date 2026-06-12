@@ -1,1 +1,22 @@
-<p>todo-create works!</p>
+<mat-form-field>
+  <mat-label>Titel</mat-label>
+  <input matInput>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Omschrijving</mat-label>
+  <input matInput>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Tags</mat-label>
+  <textarea matInput></textarea>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Angular forms</mat-label>
+  <input matInput [matDatepicker]="picker1" [formControl]="date">
+  <mat-hint>MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+  <mat-datepicker #picker1></mat-datepicker>
+</mat-form-field>
