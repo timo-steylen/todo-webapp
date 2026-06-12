@@ -1,20 +1,70 @@
 <div class="todo-update-container">
-  <mat-card class="example-card" appearance="outlined">
+
+  <mat-card class="todo-card" appearance="outlined">
     <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Java examen</mat-card-title>
-      <mat-card-subtitle>Behalen van het OCP Java examen</mat-card-subtitle>
+
+      <mat-card-title>
+        {{ todo.name }}
+      </mat-card-title>
+
+      <mat-card-subtitle>
+        {{ todo.description }}
+      </mat-card-subtitle>
     </mat-card-header>
-     <mat-card-content>
-       <mat-chip-set aria-label="Fish selection">
-         <mat-chip>Java</mat-chip>
-         <mat-chip>Certificeren</mat-chip>
-         <mat-chip>OCP</mat-chip>
-       </mat-chip-set>
-       <p><mat-slide-toggle></mat-slide-toggle></p>
+
+    <mat-card-content>
+
+      <div class="todo-section">
+        <span class="section-label">Naam</span>
+        <div>{{ todo.name }}</div>
+      </div>
+
+      <div class="todo-section">
+        <span class="section-label">Omschrijving</span>
+        <div>{{ todo.description || '-' }}</div>
+      </div>
+
+      <div class="todo-section">
+        <span class="section-label">Tags</span>
+
+        <mat-chip-set>
+          @for (tag of todo.tags?.split(','); track tag) {
+            <mat-chip>{{ tag.trim() }}</mat-chip>
+          }
+        </mat-chip-set>
+      </div>
+
+      <div class="todo-section">
+        <span class="section-label">Deadline</span>
+        <div>{{ todo.deadlineDate || '-' }}</div>
+      </div>
+
+      <div class="todo-section">
+        <span class="section-label">Status</span>
+
+        <mat-slide-toggle [checked]="todo.completed">
+          Voltooid
+        </mat-slide-toggle>
+
+      </div>
+
     </mat-card-content>
-    <mat-card-actions>
-      <button matButton>Verwijderen</button>
+
+    <mat-card-actions align="end">
+
+      <button matButton routerLink="/overview">
+        Terug
+      </button>
+
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="deleteTodo()">
+        Verwijderen
+      </button>
+
     </mat-card-actions>
+
   </mat-card>
+
 </div>

@@ -1,3 +1,10 @@
 .todo-update-container {
-  margin: 40px;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.todo-card {
+  width: 100%;
+  max-width: 700px;
 }
