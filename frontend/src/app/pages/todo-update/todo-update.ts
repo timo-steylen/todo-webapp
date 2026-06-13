@@ -4,7 +4,6 @@ import {
   MatCardActions,
   MatCardContent,
   MatCardHeader,
-  MatCardSubtitle,
   MatCardTitle
 } from '@angular/material/card';
 import {MatChip, MatChipSet} from '@angular/material/chips';
@@ -20,7 +19,6 @@ import {ActivatedRoute, Router} from '@angular/router';
     MatCard,
     MatCardHeader,
     MatCardTitle,
-    MatCardSubtitle,
     MatCardContent,
     MatCardActions,
     MatChipSet,
@@ -70,6 +68,32 @@ export class TodoUpdate {
         console.error('Error during deleting Todo: ', error);
       }
     });
+  }
+
+  updateTodo(completed: boolean) {
+    const currentTodo = this.todo();
+
+    if (!currentTodo) {
+      return;
+    }
+
+    // Signals prefer to work with a new immutable object.
+    this.todo.set({
+      ...currentTodo,
+      completed
+    });
+
+    this.todoService
+      .updateTodoStatus(this.todoId, completed)
+      .subscribe({
+        next: updatedTodo => {
+          this.todo.set(updatedTodo);
+          console.log(`Updated Todo successfully saved: ${updatedTodo.name}`);
+        },
+        error: error => {
+          console.error('Error during updating Todo: ', error);
+        }
+      });
   }
 
   cancel() {

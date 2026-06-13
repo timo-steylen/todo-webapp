@@ -6,7 +6,7 @@
     <mat-card class="todo-card" appearance="outlined">
       <mat-card-header>
         <mat-card-title>
-          <span>{{ todo.name }}</span>
+          <span><strong>{{ todo.name }}</strong></span>
         </mat-card-title>
       </mat-card-header>
 
@@ -33,7 +33,7 @@
 
         <div class="todo-section">
           <div><small class="grey-text">Completed</small></div>
-          <mat-slide-toggle [checked]="todo.completed">
+          <mat-slide-toggle [checked]="todo.completed" (change)="updateTodo($event.checked)">
           </mat-slide-toggle>
         </div>
 
