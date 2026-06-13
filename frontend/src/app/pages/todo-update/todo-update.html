@@ -1,4 +1,7 @@
-@if (todo(); as todo) {
+@if (loading()) {
+  Bezig met todo's laden...
+}
+@else if (todo(); as todo) {
   <div class="todo-update-container">
 
     <mat-card class="todo-card" appearance="outlined">
@@ -65,5 +68,5 @@
 
   </div>
 } @else {
-  <p>Todo laden...</p>
+  <p>Todo niet gevonden.</p>
 }

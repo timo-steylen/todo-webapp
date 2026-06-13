@@ -36,27 +36,47 @@ export class TodoUpdate {
   private readonly route = inject(ActivatedRoute);
   private todoService = inject(TodoService);
   private router = inject(Router);
+  private todoId: number = 0;
+  readonly loading = signal(true);
 
   readonly todo = signal<Todo | null>(null);
 
   ngOnInit(): void {
-    const todoId = Number(this.route.snapshot.paramMap.get('todoId'));
-    console.log(`todoId: ${todoId}`);
-    this.loadTodo(todoId);
+    this.todoId = this.getTodoId();
+    this.loadTodo();
   }
 
-  loadTodo(todoId: number) {
-    this.todoService.getTodo(todoId).subscribe({
+  loadTodo() {
+    this.todoService.getTodo(this.todoId).subscribe({
       next: todo => {
         console.log(`Todo retrieved: ${todo.name}`);
         this.todo.set(todo);
+        this.loading.set(false);
+      },
+      error: error => {
+        console.error('Error during loading Todo: ', error);
+        this.loading.set(false);
       }
     });
   }
 
-  deleteTodo() {}
+  deleteTodo() {
+    this.todoService.deleteTodo(this.todoId).subscribe({
+      next: deleteTodo => {
+        console.log('To-do successfully deleted: ', this.todoId);
+        this.router.navigate(['/']);
+      },
+      error: error => {
+        console.error('Error during deleting Todo: ', error);
+      }
+    });
+  }
 
   cancel() {
     this.router.navigate(['/todos']);
+  }
+
+  private getTodoId(): number {
+    return Number(this.route.snapshot.paramMap.get('todoId'));
   }
 }
