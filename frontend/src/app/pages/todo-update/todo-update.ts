@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {
   MatCard,
   MatCardActions,
@@ -12,7 +12,7 @@ import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {MatButton} from '@angular/material/button';
 import {TodoService} from '../../services/todo-service';
 import {Todo} from '../../models/todo.model';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-todo-update',
@@ -33,24 +33,30 @@ import {Router} from '@angular/router';
 })
 export class TodoUpdate {
 
+  private readonly route = inject(ActivatedRoute);
   private todoService = inject(TodoService);
   private router = inject(Router);
 
-  todo: Todo = {
-    name: '',
-    id: 0n,
-    description: '',
-    tags: '',
-    createdAt: '',
-    deadlineDate: '',
-    completed: false
-  };
+  readonly todo = signal<Todo | null>(null);
 
   ngOnInit(): void {
-    this.loadTodo(1);
+    const todoId = Number(this.route.snapshot.paramMap.get('todoId'));
+    console.log(`todoId: ${todoId}`);
+    this.loadTodo(todoId);
   }
 
-  loadTodo(todoId: number) {}
+  loadTodo(todoId: number) {
+    this.todoService.getTodo(todoId).subscribe({
+      next: todo => {
+        console.log(`Todo retrieved: ${todo.name}`);
+        this.todo.set(todo);
+      }
+    });
+  }
 
   deleteTodo() {}
+
+  cancel() {
+    this.router.navigate(['/todos']);
+  }
 }
