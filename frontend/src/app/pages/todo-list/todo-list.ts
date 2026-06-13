@@ -3,12 +3,16 @@ import {TodoService} from '../../services/todo-service';
 import {Todo} from '../../models/todo.model';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatSort, MatSortModule} from '@angular/material/sort';
+import {MatIcon} from '@angular/material/icon';
+import {Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-todo-list',
   imports: [
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatIcon,
+    RouterLink
   ],
   templateUrl: './todo-list.html',
   styleUrl: './todo-list.scss',
@@ -18,6 +22,7 @@ export class TodoList {
   @ViewChild(MatSort) sort!: MatSort;
 
   private todoService = inject(TodoService);
+  private router = inject(Router);
 
   dataSource = new MatTableDataSource<Todo>();
 
@@ -45,5 +50,9 @@ export class TodoList {
     this.todoService.getAllTodos().subscribe({
       next: todos => this.dataSource.data = todos
     });
+  }
+
+  routeTocreate() {
+    this.router.navigate(['/create']);
   }
 }

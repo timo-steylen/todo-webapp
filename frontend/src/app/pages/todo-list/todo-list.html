@@ -1,5 +1,10 @@
 <div class="todo-list-container">
-  <h1>Todo's</h1>
+  <div class="page-header">
+    <h1>Todo's</h1>
+    <button (click)="routeTocreate()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
 
   <table mat-table [dataSource]="dataSource" matSort>
 
@@ -18,7 +23,7 @@
     }
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" [routerLink]="['/overview', row.id]"></tr>
 
   </table>
 </div>

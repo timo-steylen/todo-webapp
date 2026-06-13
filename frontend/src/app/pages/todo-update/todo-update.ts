@@ -35,8 +35,8 @@ export class TodoUpdate {
   private todoService = inject(TodoService);
   private router = inject(Router);
   private todoId: number = 0;
-  readonly loading = signal(true);
 
+  readonly loading = signal(true);
   readonly todo = signal<Todo | null>(null);
 
   ngOnInit(): void {

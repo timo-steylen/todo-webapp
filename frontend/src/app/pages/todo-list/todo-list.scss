@@ -13,3 +13,18 @@ table {
 .todo-list-container {
   margin: 40px;
 }
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.mat-mdc-row {
+  cursor: pointer;
+}
+
+.mat-mdc-row:hover {
+  background-color: #f5f5f5;
+}
