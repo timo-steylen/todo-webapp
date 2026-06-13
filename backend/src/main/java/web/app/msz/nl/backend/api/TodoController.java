@@ -20,6 +20,7 @@ public class TodoController {
 
     private final TodoService todoService;
 
+
     @GetMapping
     public List<TodoResponseDto> getAllTodos() {
         return todoService.getAllTodos();
@@ -30,6 +31,12 @@ public class TodoController {
         return todoService.getTodoById(todoId);
     }
 
+    /**
+     * Creates a new todo_.
+     * The deadline date must use the format {@code yyyy-MM-dd}.
+     *
+     * @return the created todo_ with HTTP status: 201 Created
+     */
     @PostMapping
     public ResponseEntity<TodoResponseDto> createTodo(@Valid @RequestBody TodoRequestDto request) {
         TodoResponseDto response = todoService.createTodo(request);
@@ -38,6 +45,12 @@ public class TodoController {
                 .body(response);
     }
 
+    /**
+     * Deletes a todo_ by id.
+     * The deadline date must use the format {@code yyyy-MM-dd}.
+     *
+     * @return the created todo_ with HTTP status: 204 - No Content
+     */
     @DeleteMapping("/{todoId}")
     public ResponseEntity<Void> deleteTodo(@PathVariable Long todoId) {
         todoService.deleteTodo(todoId);

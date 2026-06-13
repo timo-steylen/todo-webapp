@@ -7,12 +7,13 @@ import web.app.msz.nl.backend.persistence.entities.Todo;
 
 import java.util.List;
 
+/**
+ * Mapper for mapping persistence-layer (Entity) to service-layer (DTO)
+ */
 @Mapper(componentModel = "spring")
 public interface TodoMapper {
 
     TodoResponseDto toResponseDto(Todo todo);
 
     Todo toEntity(TodoRequestDto requestDto);
-
-    List<TodoResponseDto> toResponseDtoList(List<Todo> todos);
 }

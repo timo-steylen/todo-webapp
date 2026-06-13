@@ -6,6 +6,30 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * This handler is desired to return a clear error message:
+ *
+ * <p><code>
+ * {
+ * 	"detail": "Todo with id 100 not found", <br>
+ * 	"instance": "/api/todos/100", <br>
+ * 	"status": 404, <br>
+ * 	"title": "Todo not found" <br>
+ * }
+ * </code></p><br>
+ *
+ * instead of:
+ *
+ * <p><code>
+ * {
+ * 	"detail": "An unexpected error occurred", <br>
+ * 	"instance": "/api/todos/100", <br>
+ * 	"status": 500, <br>
+ * 	"title": "Internal server error" <br>
+ * }
+ * </code></p><br>
+ *
+ */
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
