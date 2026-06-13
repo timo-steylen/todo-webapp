@@ -1,39 +1,10 @@
-:host {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.todo-create-container {
-  margin-top: 40px;
-  margin-left: 40px;
-}
-
-.todo-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  max-width: 600px;
-}
-
-mat-form-field {
-  width: 100%;
-}
-
 section {
   display: flex;
   align-items: center;
 }
 
-.example-label {
-  font-size: 14px;
-  margin: 0 16px 0 8px;
-  min-width: 120px;
-}
-
 .button-row {
   max-width: 600px;
-  margin-top: 50px;
 }
 
 .button {
@@ -44,8 +15,18 @@ section {
   margin: 8px 8px 8px 0;
 }
 
-.flex-container {
+.todo-create-container {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.todo-form {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid lightgrey;
+  border-radius: 16px;
+  padding: 1rem;
 }

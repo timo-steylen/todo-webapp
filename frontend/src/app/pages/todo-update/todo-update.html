@@ -1,36 +1,24 @@
 @if (loading()) {
   Bezig met todo's laden...
-}
-@else if (todo(); as todo) {
+} @else if (todo(); as todo) {
   <div class="todo-update-container">
 
     <mat-card class="todo-card" appearance="outlined">
       <mat-card-header>
-
         <mat-card-title>
-          {{ todo.name }}
+          <span>{{ todo.name }}</span>
         </mat-card-title>
-
-        <mat-card-subtitle>
-          {{ todo.description }}
-        </mat-card-subtitle>
       </mat-card-header>
 
+      <mat-card-content class="todo-section">
+        <div><small class="grey-text">Omschrijving</small></div>
+        <span>{{ todo.description }}</span>
+      </mat-card-content>
+
+
       <mat-card-content>
-
         <div class="todo-section">
-          <span class="section-label">Naam</span>
-          <div>{{ todo.name }}</div>
-        </div>
-
-        <div class="todo-section">
-          <span class="section-label">Omschrijving</span>
-          <div>{{ todo.description || '-' }}</div>
-        </div>
-
-        <div class="todo-section">
-          <span class="section-label">Tags</span>
-
+          <div><small class="grey-text">Tags</small></div>
           <mat-chip-set>
             @for (tag of todo.tags?.split(','); track tag) {
               <mat-chip>{{ tag.trim() }}</mat-chip>
@@ -39,24 +27,21 @@
         </div>
 
         <div class="todo-section">
-          <span class="section-label">Deadline</span>
-          <div>{{ todo.deadlineDate || '-' }}</div>
+          <div><small class="grey-text">Deadline Datum</small></div>
+          <span>{{ todo.deadlineDate || '-' }}</span>
         </div>
 
         <div class="todo-section">
-          <span class="section-label">Status</span>
-
+          <div><small class="grey-text">Completed</small></div>
           <mat-slide-toggle [checked]="todo.completed">
-            Voltooid
           </mat-slide-toggle>
-
         </div>
 
       </mat-card-content>
 
       <mat-card-actions align="end">
-        <button matButton ="outlined" (click)="cancel()">
-          Annuleren
+        <button matButton="outlined" (click)="cancel()">
+          Terug naar overzicht
         </button>
 
         <button matButton="filled" (click)="deleteTodo()">

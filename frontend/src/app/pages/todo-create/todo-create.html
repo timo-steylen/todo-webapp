@@ -1,8 +1,6 @@
 <div class="todo-create-container">
-
-  <h1>Nieuwe Todo</h1>
-
   <form class="todo-form" [formGroup]="todoForm" (ngSubmit)="saveTodo()">
+    <h1>Nieuwe Todo</h1>
     <mat-form-field>
       <mat-label>Titel</mat-label>
       <input matInput formControlName="name">
@@ -16,7 +14,7 @@
       <textarea matInput formControlName="tags"></textarea>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Angular forms</mat-label>
+      <mat-label>Deadline datum</mat-label>
       <input matInput [matDatepicker]="picker1" formControlName="deadlineDate">
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -25,8 +23,6 @@
     <section>
       <div class="button-row">
         <button matButton="outlined" class="button" (click)="cancel()">Annuleren</button>
-      </div>
-      <div class="button-row">
         <button matButton="filled" class="button" type="submit">Opslaan</button>
       </div>
     </section>
