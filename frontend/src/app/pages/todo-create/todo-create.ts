@@ -8,6 +8,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {TodoService} from '../../services/todo-service';
 import {CreateTodoRequest} from '../../models/create-todo-request.model';
 import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-todo-create',
@@ -29,6 +30,7 @@ export class TodoCreate {
   private fb = inject(FormBuilder);
   private todoService = inject(TodoService);
   private router = inject(Router);
+  private readonly snackBar = inject(MatSnackBar);
 
   todoForm = this.fb.nonNullable.group({
     name: ['', Validators.required],
@@ -59,6 +61,7 @@ export class TodoCreate {
     this.todoService.createTodo(request).subscribe({
       next: savedTodo => {
         console.log('To-do successfully saved: ', savedTodo);
+        this.snackBar.open('Todo aangemaakt', 'Sluiten', { duration: 2500 });
         this.router.navigate(['/']);
       },
       error: error => {

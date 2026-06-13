@@ -12,6 +12,7 @@ import {MatButton} from '@angular/material/button';
 import {TodoService} from '../../services/todo-service';
 import {Todo} from '../../models/todo.model';
 import {ActivatedRoute, Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-todo-update',
@@ -34,6 +35,7 @@ export class TodoUpdate {
   private readonly route = inject(ActivatedRoute);
   private todoService = inject(TodoService);
   private router = inject(Router);
+  private readonly snackBar = inject(MatSnackBar);
   private todoId: number = 0;
 
   readonly loading = signal(true);
@@ -62,6 +64,7 @@ export class TodoUpdate {
     this.todoService.deleteTodo(this.todoId).subscribe({
       next: deleteTodo => {
         console.log('To-do successfully deleted: ', this.todoId);
+        this.snackBar.open('Todo verwijderd', 'Sluiten', { duration: 2500 });
         this.router.navigate(['/']);
       },
       error: error => {
@@ -89,6 +92,7 @@ export class TodoUpdate {
         next: updatedTodo => {
           this.todo.set(updatedTodo);
           console.log(`Updated Todo successfully saved: ${updatedTodo.name}`);
+          this.snackBar.open('Todo aangepast', 'Sluiten', { duration: 2500 });
         },
         error: error => {
           console.error('Error during updating Todo: ', error);
