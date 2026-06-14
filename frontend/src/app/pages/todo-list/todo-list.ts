@@ -38,18 +38,18 @@ export class TodoList {
 
   displayedColumns = this.columns.map(c => c.key);
 
+  constructor() {
+    effect(() => {
+      this.dataSource.data = this.todoService.todos();
+    });
+  }
+
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
 
   ngOnInit(): void {
       this.todoService.getAllTodos();
-  }
-
-  constructor() {
-    effect(() => {
-      this.dataSource.data = this.todoService.todos();
-    });
   }
 
   routeTocreate() {

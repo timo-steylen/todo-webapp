@@ -25,6 +25,8 @@ export class TodoService {
     );
   }
 
+  // This saves the retrieved objects to the service's todos.
+  // Now it can be accessed from multiple locations and only needs to be saved once.
   getAllTodos(): void {
     this.http.get<Todo[]>(this.apiUrl).subscribe({
       next: todos => this.todos.set(todos)
@@ -35,6 +37,9 @@ export class TodoService {
     return this.http.get<Todo>(`${this.apiUrl}/${todoId}`);
   }
 
+  // After a successful PATCH, the local Signal becomes exactly the same
+  // Todo_ as the one that was modified by the backend, so that all components
+  // automatically see the latest data.
   updateTodoStatus(todoId: number, request: UpdateTodoStatusRequest): Observable<Todo> {
     return this.http.patch<Todo>(`${this.apiUrl}/${todoId}`, request).pipe(
       tap(updatedTodo => {
