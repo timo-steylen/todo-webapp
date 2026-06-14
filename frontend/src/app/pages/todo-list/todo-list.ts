@@ -1,4 +1,4 @@
-import {Component, inject, ViewChild} from '@angular/core';
+import {Component, effect, inject, ViewChild} from '@angular/core';
 import {TodoService} from '../../services/todo-service';
 import {Todo} from '../../models/todo.model';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
@@ -43,12 +43,12 @@ export class TodoList {
   }
 
   ngOnInit(): void {
-    this.loadTodos();
+      this.todoService.getAllTodos();
   }
 
-  loadTodos(): void {
-    this.todoService.getAllTodos().subscribe({
-      next: todos => this.dataSource.data = todos
+  constructor() {
+    effect(() => {
+      this.dataSource.data = this.todoService.todos();
     });
   }
 

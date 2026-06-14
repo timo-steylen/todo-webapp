@@ -13,6 +13,7 @@ import {TodoService} from '../../services/todo-service';
 import {Todo} from '../../models/todo.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {UpdateTodoStatusRequest} from '../../models/update-todo-status-request.model';
 
 @Component({
   selector: 'app-todo-update',
@@ -74,24 +75,32 @@ export class TodoUpdate {
   }
 
   updateTodo(completed: boolean) {
+
+    // Read current object from Signal
     const currentTodo = this.todo();
 
     if (!currentTodo) {
       return;
     }
 
-    // Signals prefer to work with a new immutable object.
+    // Set the current object in the UI/Signal with the new 'completed' status
+    // (optimistic update)
     this.todo.set({
       ...currentTodo,
       completed
     });
 
+    const request: UpdateTodoStatusRequest = {
+      completed
+    };
+    console.log(request);
+    console.log(completed);
+
     this.todoService
-      .updateTodoStatus(this.todoId, completed)
+      .updateTodoStatus(this.todoId, request)
       .subscribe({
         next: updatedTodo => {
           this.todo.set(updatedTodo);
-          console.log(`Updated Todo successfully saved: ${updatedTodo.name}`);
           this.snackBar.open('Todo aangepast', 'Sluiten', { duration: 2500 });
         },
         error: error => {

@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {CreateTodoRequest} from '../models/create-todo-request.model';
 import {Observable, tap} from 'rxjs';
 import {Todo} from '../models/todo.model';
+import {UpdateTodoStatusRequest} from '../models/update-todo-status-request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ import {Todo} from '../models/todo.model';
 export class TodoService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = 'http://localhost:8090/api/todos';
-  private readonly todos = signal<Todo[]>([]);
+  readonly todos = signal<Todo[]>([]);
 
   readonly openTodoCount = computed(() =>
     this.todos().filter(todo => !todo.completed).length
@@ -24,28 +25,18 @@ export class TodoService {
     );
   }
 
-  loadTodos(): void {
+  getAllTodos(): void {
     this.http.get<Todo[]>(this.apiUrl).subscribe({
-    next: todos => {
-      this.todos.set(todos);
-      console.log('To-do successfully loaded: ', todos);
-    },
-    error: error => {
-      console.error('Error during loading Todos : ', error);
-    }
-  });
-  }
-
-  getAllTodos(): Observable<Todo[]> {
-    return this.http.get<Todo[]>(this.apiUrl);
+      next: todos => this.todos.set(todos)
+    });
   }
 
   getTodo(todoId: number): Observable<Todo> {
     return this.http.get<Todo>(`${this.apiUrl}/${todoId}`);
   }
 
-  updateTodoStatus(todoId: number, completed: boolean): Observable<Todo> {
-    return this.http.patch<Todo>(`${this.apiUrl}/${todoId}`, { completed }).pipe(
+  updateTodoStatus(todoId: number, request: UpdateTodoStatusRequest): Observable<Todo> {
+    return this.http.patch<Todo>(`${this.apiUrl}/${todoId}`, request).pipe(
       tap(updatedTodo => {
         this.todos.update(todos =>
           todos.map(todo =>

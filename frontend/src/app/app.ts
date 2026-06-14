@@ -14,6 +14,6 @@ export class App {
   private readonly todoService = inject(TodoService);
 
   constructor() {
-    this.todoService.loadTodos();
+    this.todoService.getAllTodos();
   }
 }

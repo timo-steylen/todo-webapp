@@ -14,5 +14,8 @@ import {TodoService} from '../../services/todo-service';
 })
 export class Header {
   private todoService = inject(TodoService);
+
+  // When changing objects in this.todos(), the compute for this signal
+  // will be re-calculated in openTodoCount because of the dependency on this.todos().
   readonly openTodoCount = this.todoService.openTodoCount;
 }

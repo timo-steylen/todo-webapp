@@ -5,7 +5,6 @@ import web.app.msz.nl.backend.persistence.entities.Todo;
 
 /**
  * automatic generated methods:
- *
  * findAll()
  * findById()
  * save()
