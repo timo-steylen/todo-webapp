@@ -95,3 +95,17 @@ Swagger UI is available at:
 - Angular Material
 - TypeScript
 - Signals
+
+
+# Approach
+
+The application is structured into two main components: the backend and the frontend. The backend is built using Spring Boot, which provides a robust framework for building RESTful APIs. The frontend is developed using Angular, which offers a powerful platform for building dynamic web applications.
+
+The backend is responsible for handling business logic, data persistence, and API endpoints. It uses PostgreSQL as the database, with Flyway for database migrations. MapStruct is used for mapping between entities and DTOs, while Lombok helps reduce boilerplate code.
+
+The frontend is designed to provide a user-friendly interface for managing tasks. It uses Angular Material for UI components and follows best practices for state management and component architecture. The application allows users to create, read, update, and delete tasks, with real-time updates using Angular Signals.
+
+The Development approach was as following:
+1. **Database Setup**: Start by setting up the PostgreSQL database using Docker Compose. This ensures a consistent environment for development and testing.
+2. **Backend Development**: Implemented the REST API with CRUD operations, DTOs, MapStruct mapping, exception handling, validation, and database migrations. Also added JavaDoc documentation, CORS configuration, and project documentation.
+3. **Frontend Development**: Built an Angular frontend with routing, reactive forms, shared state management, sorting, and responsive UI components. Added create, overview, update, delete, and status management functionality, including user feedback, navigation, and reusable components.
