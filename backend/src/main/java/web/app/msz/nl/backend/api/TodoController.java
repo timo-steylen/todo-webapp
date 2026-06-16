@@ -13,6 +13,13 @@ import web.app.msz.nl.backend.service.TodoService;
 import java.util.List;
 
 
+/**
+ * RestController for handling todo_ related API endpoints.
+ * <p>
+ * This controller provides endpoints for creating, retrieving, updating, and deleting todo_ items.
+ * The response will be sent in JSON format. Using Lombok for DI.
+ * </p>
+ */
 @RestController
 @RequestMapping("/api/todos")
 @RequiredArgsConstructor

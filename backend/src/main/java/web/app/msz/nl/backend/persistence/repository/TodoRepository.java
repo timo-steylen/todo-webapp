@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import web.app.msz.nl.backend.persistence.entities.Todo;
 
 /**
- * automatic generated methods:
+ * automatic generated methods by JPA:
  * findAll()
  * findById()
  * save()

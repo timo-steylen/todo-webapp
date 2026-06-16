@@ -17,6 +17,10 @@ import java.util.List;
 
 /**
  * Service Implementation for managing {@link web.app.msz.nl.backend.persistence.entities.Todo}.
+ *
+ * Using @Service to create the Bean automatically. Using @RequiredArgsConstructor for DI.
+ * Using @Transactional for saving 'everything' or 'nothing', because of a possible rollback.
+ *
  */
 @Slf4j
 @Service
